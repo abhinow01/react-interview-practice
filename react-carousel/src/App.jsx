@@ -3,43 +3,46 @@ import { data } from "./data"
 function App() {
 
   const [activeIndex,setActiveIndex] = useState(0);
+  
   const handleNext = () =>{
-    setActiveIndex((activeIndex+1)%data.length);
-
+       setActiveIndex((activeIndex+1)%data.length);
   }
 
   const handlePrev = () =>{
-    (!activeIndex ? setActiveIndex(data.length-1) : setActiveIndex(activeIndex-1));
+     setActiveIndex(!activeIndex ? data.length : activeIndex+1);
   }
-
-  useEffect(()=>{
-
+   useEffect(()=>{
+     
    setInterval(()=>{
-handleNext()
-   },5000)
+     handleNext();
+   },2000)
 
-   return ()=>{
-      clearInterval();
-   }
+   return(()=>{
+    clearInterval();
+   })
 
-  },[activeIndex])
+   },[activeIndex])
 
   return (
     <>
-      <div className="flex  justify-center">
-      <button className=" h-auto border border-slate-600 border-round" onClick={handlePrev}>prev</button>
-      {
-        data.map((url, i)=>(
-          <img
-          src={url}
-          key={i}
-          className={"w-[700px]  " + (activeIndex === i ? "block": "hidden")}
-          alt="Wallpaper"
-          
-          />
-        ))
-      }
-      <button className=" h-auto border border-slate-600 border-round" onClick={handleNext}>next</button>
+      <div className="flex justify-center">
+
+        <button onClick={handlePrev} className="h-[20px] py-[50px] mt-[100px] p-4 font-bold border">prev</button>
+
+        {
+          data.map((url,i)=>(
+            <img
+            src={url}
+            key={i}
+            className={"w-[500px] " +(activeIndex === i ? "block" : "hidden")}
+            alt="Wallpaper"
+            />
+
+          ))
+        }
+
+        <button onClick={handleNext} className="h-[20px] py-[50px] mt-[100px] p-4 font-bold border">next</button>
+
       </div>
     </>
   )
