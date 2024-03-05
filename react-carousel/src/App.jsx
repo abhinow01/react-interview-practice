@@ -9,7 +9,7 @@ function App() {
   }
 
   const handlePrev = () =>{
-     setActiveIndex(!activeIndex ? data.length : activeIndex+1);
+     setActiveIndex(!activeIndex ? data.length : activeIndex-1);
   }
    useEffect(()=>{
      
